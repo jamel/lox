@@ -104,17 +104,15 @@ int run_file(const char* filename) {
   char* start = buf;
   char* end;
   while ((end = strchr(start, '\n')) != NULL) {
-    // if ((size_t)(end - start) == 1) {
-    //   continue;
-    // }
+    if (end != start) {
+      *end = '\0';
 
-    *end = '\0';
-
-    rv = run_line(start);
-    if (rv) {
-      log_errf(rv, "failed to run line \'%s'", start);
-      free(buf);
-      return EINVAL;
+      rv = run_line(start);
+      if (rv) {
+        log_errf(rv, "failed to run line \'%s'", start);
+        free(buf);
+        return EINVAL;
+      }
     }
 
     start = end + 1;
@@ -138,6 +136,10 @@ int run_prompt() {
       len = strlen(line);
       if (len > 0 && line[len-1] == '\n') {
         line[len-1] = '\0';
+        len--;
+      }
+      if (len == 0) {
+        continue;
       }
 
       rv = run_line(line);
