@@ -1,10 +1,9 @@
-#include <string.h>
+#include <errno.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/errno.h>
-#include <errno.h>
 
 #define MAX_PROMPT_LEN 255
 #define MAX_FILE_LEN 1048576LL
@@ -33,7 +32,6 @@ static void log_errno(const char* fmt, ...) {
   log_errv(errno, fmt, va);
   va_end(va);
 }
-
 
 int read_file(const char* filename, char** buf, size_t* len) {
   FILE* fp = fopen(filename, "rb");
@@ -64,7 +62,7 @@ int read_file(const char* filename, char** buf, size_t* len) {
 
   rewind(fp);
 
-  char *tmpbuf = malloc(file_size + 1);
+  char* tmpbuf = malloc(file_size + 1);
   if (tmpbuf == NULL) {
     fclose(fp);
     log_errf(ENOMEM, "failed to allocate %ld bytes", file_size);
@@ -81,7 +79,7 @@ int read_file(const char* filename, char** buf, size_t* len) {
 
   tmpbuf[read_bytes] = '\0';
   fclose(fp);
-  
+
   *buf = tmpbuf;
   *len = file_size;
   return 0;
@@ -134,8 +132,8 @@ int run_prompt() {
     printf(">> ");
     if (fgets(line, MAX_PROMPT_LEN, stdin) != NULL) {
       len = strlen(line);
-      if (len > 0 && line[len-1] == '\n') {
-        line[len-1] = '\0';
+      if (len > 0 && line[len - 1] == '\n') {
+        line[len - 1] = '\0';
         len--;
       }
       if (len == 0) {
