@@ -30,4 +30,7 @@ $(OBJ_DIR):
 clean:
 	$(RM) -fr $(TARGET_DIR)
 
-.PHONY: build clean
+fmt:
+	rg --files -g '*.c' -g '*.h' | xargs clang-format -i
+
+.PHONY: build clean fmt
