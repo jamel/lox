@@ -1,0 +1,22 @@
+---
+BasedOnStyle: Google
+Language: Cpp
+ColumnLimit: 80
+
+# Indentation.
+IndentWidth: 2
+ContinuationIndentWidth: 4
+
+# Disables single-line formatting.
+AllowShortFunctionsOnASingleLine: None
+AllowShortBlocksOnASingleLine: Never
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: false
+
+# More readable function arguments formatting.
+AlignAfterOpenBracket: BlockIndent
+BinPackParameters: OnePerLine
+BinPackArguments: false
+AllowAllParametersOfDeclarationOnNextLine: false
+AllowAllArgumentsOnNextLine: false
